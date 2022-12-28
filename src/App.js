@@ -1,9 +1,14 @@
 import './App.css';
-import Button from 'react-bootstrap/Button';
+// import Button from 'react-bootstrap/Button';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { Form, Container, Button, ProgressBar, Modal } from "react-bootstrap";
+import { useEffect, useRef, useState } from 'react';
+import ExpandableBlock from './Components/ExpandableBlock';
 function App() {
   const [data, setData] = useState([])
+  const [file,setFile]=useState()
+  const[disabled,setDisabled]=useState(false)
+  const inputRef=useRef()
 
   const getData = async () => {
     await axios.get("http://127.0.0.1:8000/api/TrackingDetails").then(r => {
@@ -25,10 +30,38 @@ function App() {
       console.log(e)
     })
   }
+  const UploadFile=async()=>{
+    var formData = new FormData();
+    formData.append("file", file);
+    await axios.post('',formData).then(r=>{
+      console.log(r.data)
+    }).catch(e=>{console.log(e)})
+  }
+  useEffect(()=>{
+    UploadFile()
+  },[file])
+  
   return (
+   
+  
     <div style={{ display: "flex", flexDirection: 'column', height: "100vh" }}>
-      <div style={{ display: "flex", flexDirection: 'column', justifyContent: "center", backgroundColor: "#09baca" }}>
-        <h1 style={{ color: "white", margin: "10px" }} >Cyno Tracking</h1>
+      <div style={{ display: "flex", flexDirection: 'row', backgroundColor: "#09baca" ,alignItems:"center"}}>
+        <h1 style={{ color: "white", margin: "10px" ,flex:1}} >Cyno Tracking</h1>
+        <input type="file"
+                hidden
+                ref={inputRef}
+                 onChange={(e) => {
+                    setFile(e.target.files[0])
+
+                }} />
+                 
+          <Button style={{ backgroundColor: "white", borderWidth: "0px", height: "50px",width:"100px", borderRadius: "20px" }} variant="primary" type="submit" onClick={()=>inputRef.current.click()} >
+            Upload
+          </Button>
+          <Button style={{ backgroundColor: "white", borderWidth: "0px", height: "50px", borderRadius: "20px",width:"100px", marginRight:"10px",marginLeft:"10px" }} variant="primary" type="submit" onClick={patchData}>
+            Update
+          </Button>
+          
 
       </div>
       <div style={{ display: "flex" }}>
@@ -63,26 +96,31 @@ function App() {
                   <th>{item['OutBound']}</th>
                   <th>{item['Delivered']}</th>
                   <th>{item['lastEvent']}</th>
-                  {item.tracking_info != '' && <th>{item['tracking_info'][0].Date}{"|| "}{item['tracking_info'][0].StatusDescription}{"||"}{item['tracking_info'][0].Details}</th>}
+                  {item.tracking_info != '' &&   <ExpandableBlock item={item}/>}
+                  {/* {item.tracking_info != '' && <th>{item['tracking_info'][0].Date}{"|| "}{item['tracking_info'][0].StatusDescription}{"||"}{item['tracking_info'][0].Details}</th>} */}
 
                   {/* <th>{item['phone']}</th>
                             <th>{item['pincode']}</th> */}
                 </tr>
               ))}
+              {/* <tr>
+                <ExpandableBlock ite{}/>
+              </tr> */}
             </tbody>
 
           </table>
         </div>
-        <div style={{ flexDirection: "column", display: "flex", height: "80vh", width: '15%', justifyContent: "flex-end", padding: "10px", }}>
-          <Button style={{ backgroundColor: "#09baca", borderWidth: "0px", height: "50px", borderRadius: "20px" }} variant="primary" type="submit" >
+        {/* <div style={{ flexDirection: "column", display: "flex", height: "80vh", width: '15%', justifyContent: "flex-end", padding: "10px", }}>
+          <Button style={{ backgroundColor: "#09baca", borderWidth: "0px", height: "50px", borderRadius: "20px" }} variant="primary" type="submit" onClick={()=>inputRef.current.click()} >
             Upload
           </Button>
           <Button style={{ backgroundColor: "#09baca", borderWidth: "0px", height: "50px", borderRadius: "20px", marginTop: "20px" }} variant="primary" type="submit" onClick={patchData}>
             Update
           </Button>
-        </div>
+        </div> */}
       </div>
     </div>
+
   );
 }
 
