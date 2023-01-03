@@ -11,7 +11,7 @@ function App() {
   const inputRef=useRef()
 
   const getData = async () => {
-    await axios.get("http://127.0.0.1:8000/api/TrackingDetails").then(r => {
+    await axios.get("http://13.233.142.59:8000/api/TrackingDetails").then(r => {
       setData(r.data)
       console.log(r.data[0].tracking_info[0].Date)
     }).catch(e => {
@@ -23,7 +23,7 @@ function App() {
   }, [])
   const patchData = async () => {
     console.log('PRESSSEED')
-    await axios.patch("http://127.0.0.1:8000/api/TrackingDetails").then(r => {
+    await axios.patch("http://13.233.142.59:8000/api/TrackingDetails").then(r => {
       setData(r.data)
       console.log(r)
     }).catch(e => {
