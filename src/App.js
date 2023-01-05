@@ -6,12 +6,12 @@ import { useEffect, useRef, useState } from 'react';
 import ExpandableBlock from './Components/ExpandableBlock';
 function App() {
   const [data, setData] = useState([])
-  const [file,setFile]=useState()
-  const[disabled,setDisabled]=useState(false)
-  const inputRef=useRef()
+  const [file, setFile] = useState()
+  const [disabled, setDisabled] = useState(false)
+  const inputRef = useRef()
 
   const getData = async () => {
-    await axios.get("http://127.0.0.1:8000/api/TrackingDetails").then(r => {
+    await axios.get("https://guarded-caption-production.up.railway.app/api/TrackingDetails").then(r => {
       setData(r.data)
       console.log(r.data[0].tracking_info[0].Date)
     }).catch(e => {
@@ -23,45 +23,45 @@ function App() {
   }, [])
   const patchData = async () => {
     console.log('PRESSSEED')
-    await axios.patch("http://127.0.0.1:8000/api/TrackingDetails").then(r => {
+    await axios.patch("https://guarded-caption-production.up.railway.app/api/TrackingDetails").then(r => {
       setData(r.data)
       console.log(r)
     }).catch(e => {
       console.log(e)
     })
   }
-  const UploadFile=async()=>{
+  const UploadFile = async () => {
     var formData = new FormData();
     formData.append("file", file);
-    await axios.post('',formData).then(r=>{
+    await axios.post('http://13.233.142.59:8000/api/PostTrack', formData).then(r => {
       console.log(r.data)
-    }).catch(e=>{console.log(e)})
+    }).catch(e => { console.log(e) })
   }
-  useEffect(()=>{
+  useEffect(() => {
     UploadFile()
-  },[file])
-  
-  return (
-   
-  
-    <div style={{ display: "flex", flexDirection: 'column', height: "100vh" }}>
-      <div style={{ display: "flex", flexDirection: 'row', backgroundColor: "#09baca" ,alignItems:"center"}}>
-        <h1 style={{ color: "white", margin: "10px" ,flex:1}} >Cyno Tracking</h1>
-        <input type="file"
-                hidden
-                ref={inputRef}
-                 onChange={(e) => {
-                    setFile(e.target.files[0])
+  }, [file])
 
-                }} />
-                 
-          <Button style={{ backgroundColor: "white", borderWidth: "0px", height: "50px",width:"100px", borderRadius: "20px" }} variant="primary" type="submit" onClick={()=>inputRef.current.click()} >
-            Upload
-          </Button>
-          <Button style={{ backgroundColor: "white", borderWidth: "0px", height: "50px", borderRadius: "20px",width:"100px", marginRight:"10px",marginLeft:"10px" }} variant="primary" type="submit" onClick={patchData}>
-            Update
-          </Button>
-          
+  return (
+
+
+    <div style={{ display: "flex", flexDirection: 'column', height: "100vh" }}>
+      <div style={{ display: "flex", flexDirection: 'row', backgroundColor: "#09baca", alignItems: "center" }}>
+        <h1 style={{ color: "white", margin: "10px", flex: 1 }} >Cyno Tracking</h1>
+        <input type="file"
+          hidden
+          ref={inputRef}
+          onChange={(e) => {
+            setFile(e.target.files[0])
+
+          }} />
+
+        <Button style={{ backgroundColor: "white", borderWidth: "0px", height: "50px", width: "100px", borderRadius: "20px" }} variant="primary" type="submit" onClick={() => inputRef.current.click()} >
+          Upload
+        </Button>
+        <Button style={{ backgroundColor: "white", borderWidth: "0px", height: "50px", borderRadius: "20px", width: "100px", marginRight: "10px", marginLeft: "10px" }} variant="primary" type="submit" onClick={patchData}>
+          Update
+        </Button>
+
 
       </div>
       <div style={{ display: "flex" }}>
@@ -96,7 +96,7 @@ function App() {
                   <th>{item['OutBound']}</th>
                   <th>{item['Delivered']}</th>
                   <th>{item['lastEvent']}</th>
-                  {item.tracking_info != '' &&   <ExpandableBlock item={item}/>}
+                  {item.tracking_info != '' && <ExpandableBlock item={item} />}
                   {/* {item.tracking_info != '' && <th>{item['tracking_info'][0].Date}{"|| "}{item['tracking_info'][0].StatusDescription}{"||"}{item['tracking_info'][0].Details}</th>} */}
 
                   {/* <th>{item['phone']}</th>
