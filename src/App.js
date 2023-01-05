@@ -142,7 +142,7 @@ function App() {
   const inputRef = useRef()
 
   const getData = async () => {
-    await axios.get("http://127.0.0.1:8000/api/TrackingDetails").then(r => {
+    await axios.get("https://guarded-caption-production.up.railway.app/api/TrackingDetails").then(r => {
       setData(r.data)
       console.log(r.data[0].tracking_info[0].Date)
     }).catch(e => {
@@ -165,7 +165,7 @@ function App() {
     setDisabled(true)
     var formData = new FormData();
     formData.append("file", file);
-    await axios.post('http://127.0.0.1:8000/api/PostTrack', formData).then(r => {
+    await axios.post('https://guarded-caption-production.up.railway.app/api/PostTrack', formData).then(r => {
       setDisabled(false)
       console.log(r.data)
       getData()
