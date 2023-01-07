@@ -8,6 +8,7 @@ const ExpandableBlock = ({ item }) => {
         <>
           <th
             style={{
+              fontWeight: "normal",
               color: "black",
               fontSize: 12,
               borderBottom: "1px solid rgba(0, 0, 0, 0.15)",
@@ -20,7 +21,7 @@ const ExpandableBlock = ({ item }) => {
             {item["tracking_info"][0].StatusDescription}
             {"||"}
             {item["tracking_info"][0].Details}
-            <FaChevronUp />
+            <FaChevronUp color="red" />
           </th>
         </>
       ) : (
@@ -29,6 +30,7 @@ const ExpandableBlock = ({ item }) => {
             style={{
               color: "black",
               fontSize: 12,
+              fontWeight: "normal",
               borderBottom: "1px solid rgba(0, 0, 0, 0.15)",
               borderRight: "1px solid rgba(0, 0, 0, 0.15)",
               padding: "5px",
@@ -36,7 +38,7 @@ const ExpandableBlock = ({ item }) => {
             onClick={() => setVisible(!visible)}
           >
             {item["tracking_info"][0].StatusDescription}
-            <FaChevronDown />
+            <FaChevronDown color="green" />
           </th>
         </>
       )}

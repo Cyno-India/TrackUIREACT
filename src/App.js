@@ -144,19 +144,19 @@ function App() {
               Booked
             </th>
             <th scope="col" style={{ color: "#09baca", fontSize: 16 }}>
-              Arrival
+              Outbound
             </th>
             <th scope="col" style={{ color: "#09baca", fontSize: 16 }}>
-              Outbound
+              Arrival
             </th>
             <th scope="col" style={{ color: "#09baca", fontSize: 16 }}>
               Delivered
             </th>
             <th scope="col" style={{ color: "#09baca", fontSize: 16 }}>
-              Last Event
+              Tracking Info
             </th>
             <th scope="col" style={{ color: "#09baca", fontSize: 16 }}>
-              Tracking Info
+              Last Event
             </th>
           </tr>
         </thead>
@@ -168,6 +168,7 @@ function App() {
                   style={{
                     color: item.status == "delivered" ? "green" : "red",
                     fontSize: 12,
+                    fontWeight: "bold",
                     borderBottom: "1px solid rgba(0, 0, 0, 0.15)",
                     borderRight: "1px solid rgba(0, 0, 0, 0.15)",
                     padding: "5px",
@@ -178,6 +179,7 @@ function App() {
                 <th
                   style={{
                     color: "black",
+                    fontWeight: "normal",
                     fontSize: 12,
                     borderBottom: "1px solid rgba(0, 0, 0, 0.15)",
                     borderRight: "1px solid rgba(0, 0, 0, 0.15)",
@@ -188,6 +190,7 @@ function App() {
                 </th>
                 <th
                   style={{
+                    fontWeight: "normal",
                     color: "black",
                     fontSize: 12,
                     borderBottom: "1px solid rgba(0, 0, 0, 0.15)",
@@ -199,6 +202,7 @@ function App() {
                 </th>
                 <th
                   style={{
+                    fontWeight: "normal",
                     color: "black",
                     fontSize: 12,
                     borderBottom: "1px solid rgba(0, 0, 0, 0.15)",
@@ -211,17 +215,7 @@ function App() {
                 <th
                   style={{
                     color: "black",
-                    fontSize: 12,
-                    borderBottom: "1px solid rgba(0, 0, 0, 0.15)",
-                    borderRight: "1px solid rgba(0, 0, 0, 0.15)",
-                    padding: "5px",
-                  }}
-                >
-                  {item["Arrival"]}
-                </th>
-                <th
-                  style={{
-                    color: "black",
+                    fontWeight: "normal",
                     fontSize: 12,
                     borderBottom: "1px solid rgba(0, 0, 0, 0.15)",
                     borderRight: "1px solid rgba(0, 0, 0, 0.15)",
@@ -233,6 +227,19 @@ function App() {
                 <th
                   style={{
                     color: "black",
+                    fontWeight: "normal",
+                    fontSize: 12,
+                    borderBottom: "1px solid rgba(0, 0, 0, 0.15)",
+                    borderRight: "1px solid rgba(0, 0, 0, 0.15)",
+                    padding: "5px",
+                  }}
+                >
+                  {item["Arrival"]}
+                </th>
+                <th
+                  style={{
+                    fontWeight: "normal",
+                    color: "black",
                     fontSize: 12,
                     borderBottom: "1px solid rgba(0, 0, 0, 0.15)",
                     borderRight: "1px solid rgba(0, 0, 0, 0.15)",
@@ -241,9 +248,11 @@ function App() {
                 >
                   {item["Delivered"]}
                 </th>
+                {item.tracking_info != "" && <ExpandableBlock item={item} />}
                 <th
                   style={{
                     color: "black",
+                    fontWeight: "normal",
                     fontSize: 12,
                     borderBottom: "1px solid rgba(0, 0, 0, 0.15)",
                     borderRight: "1px solid rgba(0, 0, 0, 0.15)",
@@ -252,7 +261,6 @@ function App() {
                 >
                   {item["lastEvent"]}
                 </th>
-                {item.tracking_info != "" && <ExpandableBlock item={item} />}
               </tr>
             ))}
         </tbody>
