@@ -166,7 +166,7 @@ function App() {
               <tr>
                 <th
                   style={{
-                    color: item.status == "delivered" ? "green" : "red",
+                    color: item.status == "Delivered" ? "green" : "red",
                     fontSize: 12,
                     fontWeight: "bold",
                     borderBottom: "1px solid rgba(0, 0, 0, 0.15)",
