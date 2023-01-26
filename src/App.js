@@ -11,7 +11,7 @@ function App() {
   const inputRef=useRef()
 
   const getData = async () => {
-    await axios.get("https://guarded-caption-production.up.railway.app/api/TrackingDetails").then(r => {
+    await axios.get("https://web-production-c6ff.up.railway.app/api/TrackingDetails").then(r => {
       setData(r.data)
       console.log(r.data[0].tracking_info[0].Date)
     }).catch(e => {
@@ -23,7 +23,7 @@ function App() {
   }, [])
   const patchData = async () => {
     console.log('PRESSSEED')
-    await axios.patch("https://guarded-caption-production.up.railway.app/api/TrackingDetails").then(r => {
+    await axios.patch("https://web-production-c6ff.up.railway.app/api/TrackingDetails").then(r => {
       setData(r.data)
       console.log(r)
     }).catch(e => {
