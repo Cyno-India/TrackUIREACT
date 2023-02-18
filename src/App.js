@@ -37,8 +37,8 @@ function App() {
   const getData = async () => {
     await axios
       .get(
-        "https://web-production-c6ff.up.railway.app/api/details?limit=20"
-        // "http://127.0.0.1:8000/api/details?limit=10"
+        // "https://web-production-c6ff.up.railway.app/api/details?limit=20"
+        "http://127.0.0.1:8000/api/details?limit=20"
       )
       .then((r) => {
         setData(r.data);
@@ -244,7 +244,7 @@ function App() {
                     padding: "5px",
                   }}
                 >
-                  {item["outBound"]}
+                  {item["outbound"]}
                 </th>
                 <th
                   style={{
