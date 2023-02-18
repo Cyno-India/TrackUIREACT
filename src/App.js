@@ -1,4 +1,6 @@
 import "./App.css";
+
+import './App.css';
 // import Button from 'react-bootstrap/Button';
 import axios from "axios";
 import { Form, Container, Button, ProgressBar, Modal } from "react-bootstrap";
@@ -9,19 +11,38 @@ import ExpandableLE from "./Components/ExpandableLE";
 import Table from "react-bootstrap/Table";
 
 function App() {
-  const [data, setData] = useState([]);
-  const [file, setFile] = useState();
-  const [disabled, setDisabled] = useState(false);
-  const inputRef = useRef();
+  const [data, setData] = useState()
+  const [file, setFile] = useState()
+  const [disabled, setDisabled] = useState(false)
+  const inputRef = useRef()
+
+  const next = async () => {
+    await axios.get(data.next).then(r => {
+      setData(r.data)
+      // 
+    }).catch(e => {
+      console.log(e)
+    })
+  };
+
+  const previous = async () => {
+    await axios.get(data.previous).then(r => {
+      setData(r.data)
+      // 
+    }).catch(e => {
+      console.log(e)
+    })
+  }
 
   const getData = async () => {
     await axios
       .get(
-        "https://web-production-c6ff.up.railway.app/api/TrackingDetails"
+        // "https://web-production-c6ff.up.railway.app/api/TrackingDetails"
+        "http://127.0.0.1:8000/api/details?limit=10"
       )
       .then((r) => {
         setData(r.data);
-        console.log(r.data[0].tracking_info[0].Date);
+        console.log(r.data);
       })
       .catch((e) => {
         console.log(e);
@@ -44,6 +65,7 @@ function App() {
         console.log(e);
       });
   };
+
   const UploadFile = async () => {
     setDisabled(true);
     var formData = new FormData();
@@ -162,7 +184,7 @@ function App() {
         </thead>
         <tbody>
           {data &&
-            data.map((item) => (
+            data.results.map((item) => (
               <tr>
                 <th
                   style={{
@@ -210,7 +232,7 @@ function App() {
                     padding: "5px",
                   }}
                 >
-                  {item["Booked"]}
+                  {item["booked"]}
                 </th>
                 <th
                   style={{
@@ -222,7 +244,7 @@ function App() {
                     padding: "5px",
                   }}
                 >
-                  {item["OutBound"]}
+                  {item["outBound"]}
                 </th>
                 <th
                   style={{
@@ -234,7 +256,7 @@ function App() {
                     padding: "5px",
                   }}
                 >
-                  {item["Arrival"]}
+                  {item["arrival"]}
                 </th>
                 <th
                   style={{
@@ -246,7 +268,7 @@ function App() {
                     padding: "5px",
                   }}
                 >
-                  {item["Delivered"]}
+                  {item["delivered"]}
                 </th>
                 {item.tracking_info != "" && <ExpandableBlock item={item} />}
                 <th
@@ -259,12 +281,21 @@ function App() {
                     padding: "5px",
                   }}
                 >
-                  {item["lastEvent"]}
+                  {item["last_event"]}
                 </th>
               </tr>
             ))}
         </tbody>
       </table>
+      <div style={{ width: "40%", display: "flex", justifyContent: "center", paddingLeft: "450px" }}>
+        {data && data.previous != null && <Button style={{ backgroundColor: "#09baca", borderWidth: "0px", height: "50px", borderRadius: "20px", width: "200px" }} variant="primary" type="submit" onClick={() => previous()} >
+          previous
+        </Button>}
+        {data && data.next != null && <Button style={{ backgroundColor: "#09baca", borderWidth: "0px", height: "50px", borderRadius: "20px", width: "200px" }} variant="primary" type="submit" onClick={() => next()} >
+          Next
+        </Button>}
+
+      </div>
     </div>
     //   </div>
     // </div>
