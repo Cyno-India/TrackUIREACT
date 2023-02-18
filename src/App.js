@@ -17,18 +17,16 @@ function App() {
   const inputRef = useRef()
 
   const next = async () => {
-    alert("Before")
-    try {
-      const res = await axios.get(data.next)
-      setData(res.data)
-      alert("Before 123")
+    // alert("Before")
+    await axios.get(data.next).then(r => {
+      setData(r.data)
+      // alert("Before 123")
 
-    }
-    catch (error) {
-      alert(`${error.status}`)
-    }
-  }
-
+      // 
+    }).catch(e => {
+      console.log(e)
+    })
+  };
 
   const previous = async () => {
     await axios.get(data.previous).then(r => {
