@@ -3,7 +3,7 @@ import "./App.css";
 import './App.css';
 // import Button from 'react-bootstrap/Button';
 import axios from "axios";
-import { Form, Container, Button, ProgressBar, Modal } from "react-bootstrap";
+import { Form, Container, Button, ProgressBar, Modal, Alert } from "react-bootstrap";
 import { useEffect, useRef, useState } from "react";
 import ExpandableBlock from "./Components/ExpandableBlock";
 import Card from "./Components/Card";
@@ -17,8 +17,11 @@ function App() {
   const inputRef = useRef()
 
   const next = async () => {
+    alert("Before")
     await axios.get(data.next).then(r => {
       setData(r.data)
+      alert("Before 123")
+
       // 
     }).catch(e => {
       console.log(e)
