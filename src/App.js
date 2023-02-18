@@ -18,15 +18,17 @@ function App() {
 
   const next = async () => {
     alert("Before")
-    await axios.get(data.next).then(r => {
-      setData(r.data)
+    try {
+      const res = await axios.get(data.next)
+      setData(res.data)
       alert("Before 123")
 
-      // 
-    }).catch(e => {
-      console.log(e)
-    })
-  };
+    }
+    catch (error) {
+      alert(`${error.status}`)
+    }
+  }
+
 
   const previous = async () => {
     await axios.get(data.previous).then(r => {
