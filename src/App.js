@@ -40,7 +40,7 @@ function App() {
   const getData = async () => {
     await axios
       .get(
-        "https://web-production-c6ff.up.railway.app/api/details?limit=20"
+        "https://web-production-73c6.up.railway.app/api/details?limit=20"
         // "http://127.0.0.1:8000/api/details?limit=20"
       )
       .then((r) => {
@@ -58,7 +58,7 @@ function App() {
     console.log("PRESSSEED");
     await axios
       .patch(
-        "https://web-production-c6ff.up.railway.app/api/TrackingDetails"
+        "https://web-production-73c6.up.railway.app/api/TrackingDetails"
       )
       .then((r) => {
         setData(r.data);
@@ -75,7 +75,7 @@ function App() {
     formData.append("file", file);
     await axios
       .post(
-        "https://web-production-c6ff.up.railway.app/api/PostTrack",
+        "https://web-production-73c6.up.railway.app/api/PostTrack",
         formData
       )
       .then((r) => {
